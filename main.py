@@ -15,7 +15,7 @@ class Getter(Resource):
     @cross_origin()
     def get(self):
         connect = sqlite3.connect('adjust.db')
-        file = open('/Users/daria/Downloads/dataset_.csv')
+        file = open('/PATH/TO/FILE.csv')
         file_read = pd.read_csv(file)
         file_read.to_sql('dataset', connect, if_exists='replace', index=False)
         data = pd.read_sql_query(''' SELECT group_concat (distinct date) as date, group_concat 
@@ -105,7 +105,7 @@ class Getter(Resource):
     def post(self):
         parser = Getter.parse_add()
         args = parser.parse_args()
-        file = open('/Users/daria/Downloads/dataset.csv')
+        file = open('/PATH/TO/FILE.csv')
         file_read = pd.read_csv(file)
         data = Getter.filter_logic(file_read, args)
         return render_template('/result.html', data=data)
